@@ -18,6 +18,11 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
     private lateinit var binding: T
     private var mConfig: BaseDialogConfig ?= null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -35,7 +40,6 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mConfig = setConfig()
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         //如果isCancelable()是false 则会屏蔽物理返回键
         dialog?.setCancelable(isCancelable)
         //如果isCancelableOutside()为false 点击屏幕外Dialog不会消失；反之会消失

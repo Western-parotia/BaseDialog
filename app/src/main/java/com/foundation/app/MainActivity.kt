@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<TextView>(R.id.tv_show).setOnClickListener {
             //通过QuickDialogBuilder快速创建
-            QuickDialogBuilder<DialogChangeFloorBinding>(DialogChangeFloorBinding::class.java, object: QuickDialogBuilder.ConvertViewImp<DialogChangeFloorBinding>{
+            QuickDialogBuilder(DialogChangeFloorBinding::class.java, object: QuickDialogBuilder.ConvertViewImp<DialogChangeFloorBinding>{
                 override fun convertView(binding: DialogChangeFloorBinding, dialog: BaseDialog<DialogChangeFloorBinding>) {
                     binding.btnCancel.setOnClickListener { dialog.dismiss() }
                     binding.btnConfirm.setOnClickListener { Toast.makeText(this@MainActivity, "确认", LENGTH_SHORT).show() }

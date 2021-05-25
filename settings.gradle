@@ -1,3 +1,0 @@
-include ':basedialog'
-include ':app'
-rootProject.name = "BaseDialog"

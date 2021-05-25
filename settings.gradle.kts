@@ -1,0 +1,2 @@
+include(":BaseDialog")
+include(":app")

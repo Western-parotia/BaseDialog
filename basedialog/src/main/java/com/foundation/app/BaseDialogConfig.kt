@@ -3,6 +3,9 @@ package com.foundation.app
 import android.view.Gravity
 import android.view.WindowManager
 
+/**
+ * dialog配置类
+ */
 class BaseDialogConfig {
     var isCancelableOutside = false
     var margin = 0
