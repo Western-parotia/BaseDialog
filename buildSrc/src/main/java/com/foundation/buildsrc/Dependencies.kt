@@ -19,6 +19,6 @@ object Dependencies {
     }
 
     object Company {
-        const val basepictureselect = "com.foundation.widget:BaseDialog:0.0.1-SNAPSHOT"
+        const val basedialog = "com.foundation.app:BaseDialog:0.0.1-SNAPSHOT"
     }
 }
