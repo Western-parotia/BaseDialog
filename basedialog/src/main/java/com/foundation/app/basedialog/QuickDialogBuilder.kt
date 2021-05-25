@@ -1,4 +1,4 @@
-package com.foundation.app
+package com.foundation.app.basedialog
 
 
 import android.view.LayoutInflater
@@ -8,7 +8,8 @@ import androidx.viewbinding.ViewBinding
 /**
  * 快速构建dialog，需传入viewbing和ConvertViewImp回调类
  */
-class QuickDialogBuilder<T : ViewBinding>: BaseDialog<T> {
+class QuickDialogBuilder<T : ViewBinding>:
+    BaseDialog<T> {
     private var imp: ConvertViewImp<T>
     private var cls : Class<out ViewBinding>
     private var config = BaseDialogConfig()

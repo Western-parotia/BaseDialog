@@ -1,4 +1,4 @@
-package com.foundation.app
+package com.foundation.app.basedialog
 
 import android.content.Context
 import android.graphics.Color
@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
-import com.foundation.app.ViewBindingInitHelper.getViewBindingInstance
+import com.foundation.app.basedialog.ViewBindingInitHelper.getViewBindingInstance
 
 
 abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
     private lateinit var mContext: Context
     private lateinit var binding: T
-    private var mConfig: BaseDialogConfig ?= null
+    private var mConfig: BaseDialogConfig?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -86,10 +86,19 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
                     params.width = WindowManager.LayoutParams.WRAP_CONTENT
                 }
                 getDialogWidth() == WindowManager.LayoutParams.MATCH_PARENT -> {
-                    params.width = ScreenUtils.getScreenWidth(mContext) - 2 * ScreenUtils.dip2px(mContext, getMargin().toFloat())
+                    params.width = ScreenUtils.getScreenWidth(
+                        mContext
+                    ) - 2 * ScreenUtils.dip2px(
+                        mContext,
+                        getMargin().toFloat()
+                    )
                 }
                 else -> {
-                    params.width = ScreenUtils.dip2px(mContext, getDialogWidth().toFloat())
+                    params.width =
+                        ScreenUtils.dip2px(
+                            mContext,
+                            getDialogWidth().toFloat()
+                        )
                 }
             }
 
@@ -102,7 +111,11 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
                     params.height = WindowManager.LayoutParams.MATCH_PARENT
                 }
                 else -> {
-                    params.height = ScreenUtils.dip2px(mContext, getDialogHeight().toFloat())
+                    params.height =
+                        ScreenUtils.dip2px(
+                            mContext,
+                            getDialogHeight().toFloat()
+                        )
                 }
             }
 
@@ -114,7 +127,7 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
         }
     }
 
-    protected open fun setConfig(): BaseDialogConfig{
+    protected open fun setConfig(): BaseDialogConfig {
         return BaseDialogConfig()
     }
 

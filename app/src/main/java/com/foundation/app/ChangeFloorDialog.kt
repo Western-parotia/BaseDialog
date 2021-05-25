@@ -1,6 +1,7 @@
 package com.foundation.app
 
 import android.widget.Toast
+import com.foundation.app.basedialog.BaseDialog
 import com.foundation.app.databinding.DialogChangeFloorBinding
 
 class ChangeFloorDialog : BaseDialog<DialogChangeFloorBinding>() {

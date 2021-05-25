@@ -1,4 +1,4 @@
-package com.foundation.app
+package com.foundation.app.basedialog
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,7 +33,12 @@ object ViewBindingInitHelper {
                             if (supClz == ViewBinding::class.java) {
                                 @Suppress("UNCHECKED_CAST")
                                 val bindingClass = aT as Class<B>
-                               return getViewBindingInstanceByClass(bindingClass,layoutInflater,container, attachToParent)
+                               return getViewBindingInstanceByClass(
+                                   bindingClass,
+                                   layoutInflater,
+                                   container,
+                                   attachToParent
+                               )
                             }
                         }
                     }

@@ -1,4 +1,4 @@
-package com.foundation.app
+package com.foundation.app.basedialog
 
 import android.app.Activity
 import android.content.Context
