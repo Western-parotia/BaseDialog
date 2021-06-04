@@ -68,14 +68,12 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
         val window = dialog?.window
         window?.let {
             window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            //设置Dialog动画效果
-            if (getAnimRes() > 0) {
-                window.setWindowAnimations(getAnimRes())
-            }
-
 
             val params: WindowManager.LayoutParams = window.attributes
+            //设置黑暗度
             params.dimAmount = getDimAmount()
+            //设置透明度
+            params.alpha = getAlpha()
 
             //设置dialog显示位置
             params.gravity = getGravity()
@@ -107,7 +105,7 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
                 getDialogHeight() == WindowManager.LayoutParams.WRAP_CONTENT -> {
                     params.height = WindowManager.LayoutParams.WRAP_CONTENT
                 }
-                getDialogWidth() == WindowManager.LayoutParams.MATCH_PARENT -> {
+                getDialogHeight() == WindowManager.LayoutParams.MATCH_PARENT -> {
                     params.height = WindowManager.LayoutParams.MATCH_PARENT
                 }
                 else -> {
@@ -118,7 +116,7 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
                         )
                 }
             }
-
+            //设置动画
             if(getAnimStyle() !=0){
                 window.setWindowAnimations(getAnimStyle())
             }
@@ -156,12 +154,12 @@ abstract class BaseDialog<T : ViewBinding> : DialogFragment() {
         return mConfig!!.dimAmount
     }
 
-    protected open fun getGravity(): Int {
-        return mConfig!!.gravity
+    open fun getAlpha(): Float {
+        return mConfig!!.alpha
     }
 
-    protected open fun getAnimRes(): Int {
-        return mConfig!!.animRes
+    protected open fun getGravity(): Int {
+        return mConfig!!.gravity
     }
 
     open fun show(activity: FragmentActivity) {

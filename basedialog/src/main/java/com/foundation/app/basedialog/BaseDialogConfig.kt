@@ -13,8 +13,8 @@ class BaseDialogConfig {
     var width = WindowManager.LayoutParams.WRAP_CONTENT
     var height = WindowManager.LayoutParams.WRAP_CONTENT
     var dimAmount = 0.2f
+    var alpha = 1.0f
     var gravity = Gravity.CENTER
-    var animRes = 0
 
     fun isCancelableOutside(isCancelableOutside: Boolean): BaseDialogConfig {
         this.isCancelableOutside = isCancelableOutside
@@ -46,13 +46,13 @@ class BaseDialogConfig {
         return this
     }
 
-    fun gravity(gravity: Int): BaseDialogConfig {
-        this.gravity = gravity
+    fun alpha(alpha: Float): BaseDialogConfig{
+        this.alpha = alpha
         return this
     }
 
-    fun animRes(animRes: Int): BaseDialogConfig {
-        this.animRes = animRes
+    fun gravity(gravity: Int): BaseDialogConfig {
+        this.gravity = gravity
         return this
     }
 
