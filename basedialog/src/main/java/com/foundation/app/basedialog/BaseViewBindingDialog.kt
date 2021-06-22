@@ -5,16 +5,18 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.viewbinding.ViewBinding
+import com.foundation.app.basedialog.ViewBindingInitHelper.getViewBindingInstance
 
-abstract class BaseDialog(@LayoutRes private val layoutId: Int) : DialogFragment(), DialogLifecycleListener {
+
+abstract class BaseViewBindingDialog<T : ViewBinding> : DialogFragment(), DialogLifecycleListener {
     private lateinit var mContext: Context
+    private lateinit var binding: T
     private var mConfig: BaseDialogConfig?= null
-    private lateinit var dialogView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -31,10 +33,10 @@ abstract class BaseDialog(@LayoutRes private val layoutId: Int) : DialogFragment
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        dialogView = inflater.inflate(layoutId, container, false)
+        binding = getBinding(container)
         onDialogCreateView()
-        convertView(dialogView, this)
-        return dialogView
+        convertView(binding, this)
+        return binding.root.rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,6 +56,14 @@ abstract class BaseDialog(@LayoutRes private val layoutId: Int) : DialogFragment
         initParams()
     }
 
+    protected open fun getBinding(container: ViewGroup?): T{
+        return getViewBindingInstance(
+            this@BaseViewBindingDialog,
+            LayoutInflater.from(mContext),
+            container,
+            false
+        )!!
+    }
 
     protected open fun initParams() {
         val window = dialog?.window
@@ -169,11 +179,10 @@ abstract class BaseDialog(@LayoutRes private val layoutId: Int) : DialogFragment
         }
     }
 
-    abstract fun convertView(view: View, dialog: BaseDialog)
+    abstract fun convertView(binding: T, dialog: BaseViewBindingDialog<T>)
 
     override fun onDestroyView() {
         onDialogDestroyView()
         super.onDestroyView()
     }
-
 }
