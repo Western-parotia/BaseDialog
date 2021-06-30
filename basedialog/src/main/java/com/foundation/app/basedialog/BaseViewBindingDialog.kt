@@ -1,140 +1,88 @@
 package com.foundation.app.basedialog
 
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.app.Dialog
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
+import android.view.LayoutInflater
+import android.view.Window
+import android.view.WindowManager
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewbinding.ViewBinding
-import com.foundation.app.basedialog.ViewBindingInitHelper.getViewBindingInstance
 
-
-abstract class BaseViewBindingDialog<T : ViewBinding> : DialogFragment(), DialogLifecycleListener {
-    private lateinit var mContext: Context
+abstract class BaseViewBindingDialog<T : ViewBinding>(private val activity: ComponentActivity) : Dialog(activity), LifecycleObserver {
+    private var mConfig: BaseDialogConfig? = null
     private lateinit var binding: T
-    private var mConfig: BaseDialogConfig?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = getBinding(container)
-        onDialogCreateView()
-        convertView(binding, this)
-        return binding.root.rootView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mConfig = setConfig()
-        //如果isCancelable()是false 则会屏蔽物理返回键
-        dialog?.setCancelable(isCancelable)
-        //如果isCancelableOutside()为false 点击屏幕外Dialog不会消失；反之会消失
-        dialog?.setCanceledOnTouchOutside(isCancelableOutside())
-        //如果isCancelable()设置的是false 会屏蔽物理返回键
-        dialog?.setOnKeyListener { _, keyCode, event ->
-            keyCode == KeyEvent.KEYCODE_BACK && event.action === KeyEvent.ACTION_DOWN && !isCancelable
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
+        //绑定activity生命周期
+        activity.lifecycle.addObserver(this)
+        mConfig = initConfig()
         initParams()
+        initData()
+        initView()
     }
 
-    protected open fun getBinding(container: ViewGroup?): T{
-        return getViewBindingInstance(
-            this@BaseViewBindingDialog,
-            LayoutInflater.from(mContext),
-            container,
-            false
-        )!!
-    }
+    abstract fun initData()
 
-    protected open fun initParams() {
-        val window = dialog?.window
-        window?.let {
-            window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    private fun initParams() {
+        window?.requestFeature(Window.FEATURE_NO_TITLE)
+        val params: WindowManager.LayoutParams = window!!.attributes
+        //设置黑暗度
+        params.dimAmount = getDimAmount()
+        //设置透明度
+        params.alpha = getAlpha()
+        //设置dialog显示位置
+        params.gravity = getGravity()
 
-            val params: WindowManager.LayoutParams = window.attributes
-            //设置黑暗度
-            params.dimAmount = getDimAmount()
-            //设置透明度
-            params.alpha = getAlpha()
 
-            //设置dialog显示位置
-            params.gravity = getGravity()
-
-            //设置dialog宽度
-            when {
-                getDialogWidth() == WindowManager.LayoutParams.WRAP_CONTENT -> {
-                    params.width = WindowManager.LayoutParams.WRAP_CONTENT
-                }
-                getDialogWidth() == WindowManager.LayoutParams.MATCH_PARENT -> {
-                    params.width = ScreenUtils.getScreenWidth(
-                        mContext
-                    ) - 2 * ScreenUtils.dip2px(
-                        mContext,
-                        getMargin().toFloat()
-                    )
-                }
-                else -> {
-                    params.width =
-                        ScreenUtils.dip2px(
-                            mContext,
-                            getDialogWidth().toFloat()
-                        )
-                }
-            }
-
-            //设置Dialog的Height
-            when {
-                getDialogHeight() == WindowManager.LayoutParams.WRAP_CONTENT -> {
-                    params.height = WindowManager.LayoutParams.WRAP_CONTENT
-                }
-                getDialogHeight() == WindowManager.LayoutParams.MATCH_PARENT -> {
-                    params.height = WindowManager.LayoutParams.MATCH_PARENT
-                }
-                else -> {
-                    params.height =
-                        ScreenUtils.dip2px(
-                            mContext,
-                            getDialogHeight().toFloat()
-                        )
-                }
-            }
-            //设置动画
-            if(getAnimStyle() !=0){
-                window.setWindowAnimations(getAnimStyle())
-            }
-
-            window.attributes = params
+        //设置动画
+        if (getAnimStyle() != 0) {
+            window?.setWindowAnimations(getAnimStyle())
         }
+        window?.attributes = params
+        setCanceledOnTouchOutside(isCancelableOutside())
     }
 
-    protected open fun setConfig(): BaseDialogConfig {
-        return BaseDialogConfig()
-    }
+    override fun show() {
+        super.show()
+        val params: WindowManager.LayoutParams = window!!.attributes
+        //设置dialog宽度
+        when {
+            getDialogWidth() == WindowManager.LayoutParams.WRAP_CONTENT -> {
+                params.width = WindowManager.LayoutParams.WRAP_CONTENT
+            }
+            getDialogWidth() == WindowManager.LayoutParams.MATCH_PARENT -> {
+                params.width = ScreenUtils.getScreenWidth(activity) - 2 * ScreenUtils.dip2px( activity, getMargin().toFloat())
+            }
+            else -> {
+                params.width = ScreenUtils.dip2px(activity, getDialogWidth().toFloat())
+            }
+        }
 
+        //设置Dialog的Height
+        when {
+            getDialogHeight() == WindowManager.LayoutParams.WRAP_CONTENT -> {
+                params.height = WindowManager.LayoutParams.WRAP_CONTENT
+            }
+            getDialogHeight() == WindowManager.LayoutParams.MATCH_PARENT -> {
+                params.height = WindowManager.LayoutParams.MATCH_PARENT
+            }
+            else -> {
+                params.height = ScreenUtils.dip2px(activity, getDialogHeight().toFloat())
+            }
+        }
+        window?.attributes = params
+    }
 
     protected open fun isCancelableOutside(): Boolean {
         return mConfig!!.isCancelableOutside
     }
 
+    //直接使用的dp值
     protected open fun getMargin(): Int {
         return mConfig!!.margin
     }
@@ -143,10 +91,16 @@ abstract class BaseViewBindingDialog<T : ViewBinding> : DialogFragment(), Dialog
         return mConfig!!.animStyle
     }
 
+    /**
+     * 这里支持WindowManager.LayoutParams.WRAP_CONTENT、WindowManager.LayoutParams.MATCH_PARENT、具体dp值
+     */
     protected open fun getDialogWidth(): Int {
         return mConfig!!.width
     }
 
+    /**
+     * 这里支持WindowManager.LayoutParams.WRAP_CONTENT、WindowManager.LayoutParams.MATCH_PARENT、具体dp值
+     */
     protected open fun getDialogHeight(): Int {
         return mConfig!!.height
     }
@@ -159,30 +113,47 @@ abstract class BaseViewBindingDialog<T : ViewBinding> : DialogFragment(), Dialog
         return mConfig!!.alpha
     }
 
+    /**
+     * 这里支持系统提供的Gravity值
+     */
     protected open fun getGravity(): Int {
         return mConfig!!.gravity
     }
 
-    open fun show(activity: FragmentActivity) {
-        show(activity.supportFragmentManager)
+    protected open fun getBackgroundDrawable(): Drawable {
+        return mConfig!!.backgroundDrawable
     }
 
-    open fun show(fragment: Fragment) {
-        show(fragment.childFragmentManager)
+    private fun initView() {
+        binding = ViewBindingInitHelper.getViewBindingInstance(
+            this@BaseViewBindingDialog,
+            LayoutInflater.from(activity),
+            null,
+            false
+        )!!
+        window?.setContentView(binding.root)
+        window?.setBackgroundDrawable(getBackgroundDrawable())
+        convertView(binding)
     }
 
-    private fun show(manager: FragmentManager) {
-        try {
-            manager.beginTransaction().remove(this).commitAllowingStateLoss()
-            super.show(manager, javaClass::getSimpleName.toString())
-        } catch (e: Exception) {
+    abstract fun convertView(t: T)
+
+    /**
+     * 当activity销毁时调用，在该方法中做资源释放
+     */
+    abstract fun onDestroyDialog()
+
+    protected open fun initConfig(): BaseDialogConfig {
+        return BaseDialogConfig()
+    }
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
+        if (isShowing) {
+            dismiss()
         }
+        onDestroyDialog()
     }
 
-    abstract fun convertView(binding: T, dialog: BaseViewBindingDialog<T>)
-
-    override fun onDestroyView() {
-        onDialogDestroyView()
-        super.onDestroyView()
-    }
 }

@@ -1,5 +1,8 @@
 package com.foundation.app.basedialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.WindowManager
 
@@ -15,6 +18,7 @@ class BaseDialogConfig {
     var dimAmount = 0.2f
     var alpha = 1.0f
     var gravity = Gravity.CENTER
+    var backgroundDrawable : Drawable = ColorDrawable(Color.TRANSPARENT)
 
     fun isCancelableOutside(isCancelableOutside: Boolean): BaseDialogConfig {
         this.isCancelableOutside = isCancelableOutside
@@ -53,6 +57,11 @@ class BaseDialogConfig {
 
     fun gravity(gravity: Int): BaseDialogConfig {
         this.gravity = gravity
+        return this
+    }
+
+    fun backgroundDrawable(backgroundDrawable: Drawable): BaseDialogConfig {
+        this.backgroundDrawable = backgroundDrawable
         return this
     }
 

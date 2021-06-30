@@ -1,7 +1,7 @@
 package com.foundation.buildsrc
 
 object Dependencies {
-    private const val kotlinVersion = "1.3.72"
+    private const val kotlinVersion = "1.4.32"
 
     object Kotlin {
         const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
@@ -19,6 +19,6 @@ object Dependencies {
     }
 
     object Company {
-        const val basedialog = "com.foundation.app:BaseDialog:0.0.1-SNAPSHOT"
+        const val basedialog = "com.foundation.app:BaseDialog:1.0.0"
     }
 }
