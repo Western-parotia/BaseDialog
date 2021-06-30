@@ -47,8 +47,18 @@ abstract class BaseViewBindingDialog<T : ViewBinding>(private val activity: Comp
         setCanceledOnTouchOutside(isCancelableOutside())
     }
 
+    override fun dismiss() {
+        super.dismiss()
+        onDismiss()
+    }
+
+    abstract fun onShow()
+
+    abstract fun onDismiss()
+
     override fun show() {
         super.show()
+        onShow()
         val params: WindowManager.LayoutParams = window!!.attributes
         //设置dialog宽度
         when {

@@ -34,7 +34,9 @@ dependencies {
     implementation(Dependencies.AndroidX.fragment)
     implementation(Dependencies.AndroidX.activity)
     implementation(Dependencies.Material.material)
+//    implementation(Dependencies.Company.basedialog)
     implementation(project(":BaseDialog"))
+
 }
 configurations.all {
     resolutionStrategy {

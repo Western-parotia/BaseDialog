@@ -15,6 +15,8 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
     }
 
     override fun initData() {}
+    override fun onShow() {}
+    override fun onDismiss() {}
 
     override fun convertView(view: View) {
         view.findViewById<Button>(R.id.btn_cancel).setOnClickListener {

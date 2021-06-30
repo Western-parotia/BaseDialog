@@ -41,4 +41,8 @@ class ChangeFloorDialog(private val activity: AppCompatActivity) : BaseViewBindi
     override fun getBackgroundDrawable(): Drawable {
         return ColorDrawable(Color.BLUE)
     }
+
+    override fun onShow() {}
+
+    override fun onDismiss() {}
 }

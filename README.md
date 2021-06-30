@@ -49,6 +49,10 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
     override fun getDialogHeight(): Int {
         return WindowManager.LayoutParams.WRAP_CONTENT
     }
+
+    override fun onShow() {}
+
+    override fun onDismiss() {}
 }
 ```
 
@@ -85,6 +89,10 @@ class ChangeFloorDialog(private val activity: AppCompatActivity) : BaseViewBindi
     override fun getBackgroundDrawable(): Drawable {
         return ColorDrawable(Color.BLUE)
     }
+
+    override fun onShow() {}
+
+    override fun onDismiss() {}
 }
 ```
 
