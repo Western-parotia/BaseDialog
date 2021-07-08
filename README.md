@@ -3,7 +3,7 @@
 ###### 需要的依赖
 
 ```
-com.foundation.app:BaseDialog:1.0.0
+com.foundation.app:base-dialog:1.0.0
 ```
 
 ###### 使用示例

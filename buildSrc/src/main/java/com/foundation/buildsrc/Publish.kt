@@ -9,7 +9,7 @@ private const val SNAPSHOT = false
 /**
  * 如果空则为4级包名
  */
-private const val ARTIFACT_ID = "BaseDialog"
+private const val ARTIFACT_ID = "base-dialog"
 
 object Publish {
     object Version {
@@ -38,6 +38,7 @@ object Publish {
         val codingArtifactsRepoUrl = "https://mijukeji-maven.pkg.coding.net/repository/jileiku/base_maven/"
         val repositoryUserName: String
         val repositoryPassword: String
+        val artifactId = "base-dialog"
 
         init {
             val localProperties = Properties()
