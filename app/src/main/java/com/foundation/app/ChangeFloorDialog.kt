@@ -29,20 +29,10 @@ class ChangeFloorDialog(private val activity: AppCompatActivity) : BaseViewBindi
 
     }
 
-    override fun getGravity(): Int {
-        return Gravity.BOTTOM
-    }
-
-
-    override fun getDialogHeight(): Int {
-        return 400
-    }
-
-    override fun getBackgroundDrawable(): Drawable {
-        return ColorDrawable(Color.BLUE)
-    }
-
     override fun onShow() {}
 
     override fun onDismiss() {}
+    override fun onClickOutside() {
+        Toast.makeText(activity.application, "点击了外部", Toast.LENGTH_SHORT).show()
+    }
 }

@@ -18,6 +18,14 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
     override fun onShow() {}
     override fun onDismiss() {}
 
+    override fun isCancelableOutside(): Boolean {
+        return false
+    }
+
+    override fun onClickOutside() {
+        Toast.makeText(activity.application, "点击了外部", LENGTH_SHORT).show()
+    }
+
     override fun convertView(view: View) {
         view.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
             dismiss()
@@ -31,15 +39,5 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
         Toast.makeText(activity.application, "销毁了", LENGTH_SHORT).show()
     }
 
-    override fun getGravity(): Int {
-        return (Gravity.TOP)
-    }
 
-    override fun getDialogWidth(): Int {
-        return WindowManager.LayoutParams.MATCH_PARENT
-    }
-
-    override fun getDialogHeight(): Int {
-        return WindowManager.LayoutParams.WRAP_CONTENT
-    }
 }
