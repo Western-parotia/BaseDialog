@@ -1,8 +1,6 @@
 package com.foundation.app
 
-import android.view.Gravity
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
@@ -34,6 +32,5 @@ class ChangeFloorDialog2(activity: AppCompatActivity): BaseDialog(activity) {
     override fun onDestroyDialog() {
         Toast.makeText(activity.application, "销毁了", LENGTH_SHORT).show()
     }
-
 
 }

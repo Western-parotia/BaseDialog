@@ -3,7 +3,7 @@
 ###### 需要的依赖
 
 ```
-com.foundation.app:base-dialog:1.0.1
+com.foundation.app:base-dialog:1.0.2
 ```
 
 ###### 使用示例
@@ -12,7 +12,7 @@ com.foundation.app:base-dialog:1.0.1
 //继承BaseDialog创建
 ChangeFloorDialog2(this@TwoActivity).show()
 
-class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(activity) {
+class ChangeFloorDialog2(activity: AppCompatActivity): BaseDialog(activity) {
     override fun getLayoutId(): Int {
         return R.layout.dialog_change_floor
     }
@@ -20,10 +20,6 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
     override fun initData() {}
     override fun onShow() {}
     override fun onDismiss() {}
-
-    override fun isCancelableOutside(): Boolean {
-        return false
-    }
 
     override fun onClickOutside() {
         Toast.makeText(activity.application, "点击了外部", LENGTH_SHORT).show()
@@ -43,7 +39,6 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
         Toast.makeText(activity.application, "销毁了", LENGTH_SHORT).show()
     }
 
-
 }
 ```
 
@@ -51,7 +46,7 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
 //继承BaseViewBindingDialog创建
 ChangeFloorDialog(this@MainActivity).show()
 
-class ChangeFloorDialog(private val activity: AppCompatActivity) : BaseViewBindingDialog<DialogChangeFloorBinding>(activity) {
+class ChangeFloorDialog(activity: AppCompatActivity) : BaseViewBindingDialog<DialogChangeFloorBinding>(activity) {
 
     //回调dialog的viewbinding
     override fun convertView(binding: DialogChangeFloorBinding) {
@@ -74,6 +69,8 @@ class ChangeFloorDialog(private val activity: AppCompatActivity) : BaseViewBindi
 
     override fun onDismiss() {}
     override fun onClickOutside() {
+        //直接使用viewbinging
+        binding.btnConfirm.text = "点击了"
         Toast.makeText(activity.application, "点击了外部", Toast.LENGTH_SHORT).show()
     }
 }

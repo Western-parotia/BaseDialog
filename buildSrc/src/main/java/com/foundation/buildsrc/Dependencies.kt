@@ -19,6 +19,6 @@ object Dependencies {
     }
 
     object Company {
-        const val basedialog = "com.foundation.app:base-dialog:1.0.1"
+        const val basedialog = "com.foundation.app:base-dialog:1.0.2"
     }
 }
