@@ -9,7 +9,7 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import com.foundation.app.basedialog.BaseDialog
 
-class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(activity) {
+class ChangeFloorDialog2(activity: AppCompatActivity): BaseDialog(activity) {
     override fun getLayoutId(): Int {
         return R.layout.dialog_change_floor
     }
@@ -17,10 +17,6 @@ class ChangeFloorDialog2(private val activity: AppCompatActivity): BaseDialog(ac
     override fun initData() {}
     override fun onShow() {}
     override fun onDismiss() {}
-
-    override fun isCancelableOutside(): Boolean {
-        return false
-    }
 
     override fun onClickOutside() {
         Toast.makeText(activity.application, "点击了外部", LENGTH_SHORT).show()
