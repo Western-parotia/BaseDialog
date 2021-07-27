@@ -24,8 +24,8 @@ abstract class BaseDialog(val activity: ComponentActivity, @StyleRes themeResId:
         super.onCreate(savedInstanceState)
         //绑定activity生命周期
         activity.lifecycle.addObserver(this)
-        initData()
         initView()
+        initData()
     }
 
     abstract fun initData()

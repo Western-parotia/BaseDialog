@@ -31,10 +31,10 @@ abstract class BaseViewBindingDialog<T : ViewBinding>(activity: ComponentActivit
 
     abstract fun convertView(binding: T)
 
-    override fun getLayoutId(): Int {
+    final override fun getLayoutId(): Int {
         return 0
     }
 
-    override fun convertView(view: View) {}
+    final override fun convertView(view: View) {}
 
 }
