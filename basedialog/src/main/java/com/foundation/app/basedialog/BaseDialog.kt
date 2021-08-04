@@ -52,7 +52,7 @@ abstract class BaseDialog(val activity: ComponentActivity, @StyleRes themeResId:
         //phonewindow永远是match_parent的
         val params: WindowManager.LayoutParams = window!!.attributes
         params.width = WindowManager.LayoutParams.MATCH_PARENT
-        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = ScreenUtils.getScreenHeightNoStatusBar(activity)
         window?.attributes = params
     }
 
