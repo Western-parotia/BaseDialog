@@ -1,6 +1,7 @@
 package com.foundation.app.basedialog
 
 import android.view.*
+import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.annotation.StyleRes
 import androidx.viewbinding.ViewBinding
@@ -9,24 +10,15 @@ abstract class BaseViewBindingDialog<T : ViewBinding>(activity: ComponentActivit
     lateinit var binding: T
     private set
 
-    override fun initView() {
+    override fun getLayoutView(rootLayout: FrameLayout): View {
         binding = ViewBindingInitHelper.getViewBindingInstance(
             this@BaseViewBindingDialog,
             LayoutInflater.from(activity),
             rootLayout,
             false
         )!!
-        binding.root.isClickable = true
-        rootLayout.addView(binding.root)
-        rootLayout.setOnClickListener {
-            if (cancelOutSide) {
-                dismiss()
-            } else {
-                onClickOutside()
-            }
-        }
         convertView(binding)
-        window?.setContentView(rootLayout)
+        return binding.root
     }
 
     abstract fun convertView(binding: T)

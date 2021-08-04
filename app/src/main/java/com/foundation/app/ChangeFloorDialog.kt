@@ -26,8 +26,5 @@ class ChangeFloorDialog(activity: AppCompatActivity) : BaseViewBindingDialog<Dia
     override fun onShow() {}
 
     override fun onDismiss() {}
-    override fun onClickOutside() {
-        binding.btnConfirm.text = "点击了"
-        Toast.makeText(activity.application, "点击了外部", Toast.LENGTH_SHORT).show()
-    }
+
 }

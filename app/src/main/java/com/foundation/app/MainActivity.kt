@@ -9,9 +9,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<TextView>(R.id.tv_show).setOnClickListener {
-            ChangeFloorDialog(this@MainActivity).show()
+            val dialog = ChangeFloorDialog(this@MainActivity)
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.show()
         }
 
     }
-    
+
 }

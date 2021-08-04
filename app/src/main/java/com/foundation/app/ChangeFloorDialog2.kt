@@ -16,10 +16,6 @@ class ChangeFloorDialog2(activity: AppCompatActivity): BaseDialog(activity) {
     override fun onShow() {}
     override fun onDismiss() {}
 
-    override fun onClickOutside() {
-        Toast.makeText(activity.application, "点击了外部", LENGTH_SHORT).show()
-    }
-
     override fun convertView(view: View) {
         view.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
             dismiss()

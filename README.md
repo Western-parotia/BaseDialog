@@ -3,10 +3,12 @@
 ###### 需要的依赖
 
 ```
-com.foundation.app:base-dialog:1.0.4
+com.foundation.app:base-dialog:1.0.5
 ```
 
 ###### 使用示例
+##### xml中设置height写死，再设置margin，会出现错误，待解决
+
 
 ```
 //继承BaseDialog创建
@@ -20,10 +22,6 @@ class ChangeFloorDialog2(activity: AppCompatActivity): BaseDialog(activity) {
     override fun initData() {}
     override fun onShow() {}
     override fun onDismiss() {}
-
-    override fun onClickOutside() {
-        Toast.makeText(activity.application, "点击了外部", LENGTH_SHORT).show()
-    }
 
     override fun convertView(view: View) {
         view.findViewById<Button>(R.id.btn_cancel).setOnClickListener {
@@ -68,11 +66,7 @@ class ChangeFloorDialog(activity: AppCompatActivity) : BaseViewBindingDialog<Dia
     override fun onShow() {}
 
     override fun onDismiss() {}
-    override fun onClickOutside() {
-        //直接使用viewbinging
-        binding.btnConfirm.text = "点击了"
-        Toast.makeText(activity.application, "点击了外部", Toast.LENGTH_SHORT).show()
-    }
+
 }
 ```
 
