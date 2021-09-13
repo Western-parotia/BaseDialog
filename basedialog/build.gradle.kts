@@ -16,6 +16,7 @@ dependencies {
     implementation(Dependencies.AndroidX.fragment)
     implementation(Dependencies.AndroidX.activity)
     implementation(Dependencies.Material.material)
+    implementation(Dependencies.Company.viewBindingHelper)
 }
 
 android {
