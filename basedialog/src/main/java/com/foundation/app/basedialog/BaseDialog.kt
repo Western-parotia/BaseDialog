@@ -57,7 +57,7 @@ abstract class BaseDialog(
             params.gravity = params.gravity or Gravity.TOP
         }
         window?.attributes = params
-        window?.setDimAmount(1.0F)
+        window?.setDimAmount(getDimAmount())
     }
 
     override fun setCanceledOnTouchOutside(cancel: Boolean) {
@@ -65,8 +65,11 @@ abstract class BaseDialog(
         super.setCanceledOnTouchOutside(cancel)
     }
 
+    open fun getDimAmount():Float{
+        return 0.4F
+    }
     open fun getAnimStyle(): Int {
-        return 0
+        return R.style.dialogAnimSlideBottom
     }
 
     private fun initView() {
