@@ -20,6 +20,6 @@ object Dependencies {
 
     object Company {
         const val viewBindingHelper = "com.foundation.widget:view-binding-helper:0.0.1-SNAPSHOT"
-        const val basedialog = "com.foundation.app:base-dialog:1.0.6"
+        const val basedialog = "com.foundation.app:base-dialog:1.0.8"
     }
 }
