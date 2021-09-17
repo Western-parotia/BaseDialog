@@ -35,7 +35,8 @@ object Publish {
     }
 
     object Maven {
-        val codingArtifactsRepoUrl = "https://mijukeji-maven.pkg.coding.net/repository/jileiku/base_maven/"
+        val codingArtifactsRepoUrl =
+            "https://mijukeji-maven.pkg.coding.net/repository/jileiku/base_maven/"
         val repositoryUserName: String
         val repositoryPassword: String
         val artifactId = "base-dialog"
@@ -64,40 +65,14 @@ object Publish {
          * 获取模块4级包名，如：com.foundation.widget.shape
          */
         fun getFourPackage(projectDir: File): String {
-            try {
-                val javaFile = File(projectDir, "src\\main\\java")
-                if (javaFile.exists()) {
-                    val child = javaFile.listFiles()[0].listFiles()[0].listFiles()[0].listFiles()[0]
-                    //先删掉前段路径，然后转为.
-                    return child.absolutePath.substring(javaFile.absolutePath.length + 1)
-                        .replace("/", ".")
-                        .replace("\\", ".")
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            throw  RuntimeException("没有找到第四级包名")
+            return "com.foundation.app.basedialog"
         }
 
         /**
          * 上传库时的名字（如果配置为空则取四级包名名字）
          */
         fun getArtifactId(projectDir: File): String {
-            val id = ARTIFACT_ID
-            if (id.isNotEmpty()) {
-                return id;
-            }
-            try {
-                val javaFile = File(projectDir, "src\\main\\java")
-                if (javaFile.exists()) {
-                    val name = javaFile.listFiles()[0].listFiles()[0].listFiles()[0].listFiles()[0].name
-                    //第四级的名字，首字母大写
-                    return name[0].toUpperCase() + name.substring(1, name.length)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            throw  RuntimeException("没有找到第四级包名")
+            return ARTIFACT_ID
         }
 
     }

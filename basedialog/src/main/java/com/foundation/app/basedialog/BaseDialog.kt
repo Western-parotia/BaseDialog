@@ -19,7 +19,8 @@ abstract class BaseDialog(
         it.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
     }
     lateinit var dialogView: View
-    open var cancelOutSide = true
+
+    private var clickRootDismiss = true
 
     abstract fun getLayoutId(): Int
 
@@ -29,6 +30,7 @@ abstract class BaseDialog(
         activity.lifecycle.addObserver(this)
         initView()
         initData()
+
     }
 
     abstract fun initData()
@@ -55,10 +57,11 @@ abstract class BaseDialog(
             params.gravity = params.gravity or Gravity.TOP
         }
         window?.attributes = params
+        window?.setDimAmount(1.0F)
     }
 
     override fun setCanceledOnTouchOutside(cancel: Boolean) {
-        cancelOutSide = cancel
+        clickRootDismiss = cancel
         super.setCanceledOnTouchOutside(cancel)
     }
 
@@ -71,7 +74,7 @@ abstract class BaseDialog(
         dialogView.isClickable = true
         rootLayout.addView(dialogView)
         rootLayout.setOnClickListener {
-            if (cancelOutSide) {
+            if (clickRootDismiss) {
                 dismiss()
             }
         }
