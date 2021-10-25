@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 定义dialog的样式-->
-    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
         <!-- 背景透明 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>

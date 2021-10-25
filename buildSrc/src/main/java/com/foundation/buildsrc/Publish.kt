@@ -3,7 +3,7 @@ package com.foundation.buildsrc
 import java.io.File
 import java.util.*
 
-private const val VERSION = "1.0.8"
+private const val VERSION = "1.0.9"
 private const val SNAPSHOT = false
 
 /**
