@@ -107,5 +107,11 @@ abstract class BaseDialog(
         onDestroyDialog()
     }
 
-
+    /**
+     * 关联其它的lifecycle 关联的页面关闭，同时会触发dialog的dismiss
+     * @param lifecycle
+     */
+    open fun bindOtherLifecycle(lifecycle: Lifecycle) {
+        lifecycle.addObserver(this)
+    }
 }
