@@ -7,11 +7,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdkVersion(31)
 
     defaultConfig {
         applicationId = "com.foundation.basedialog"
         minSdkVersion(21)
+        targetSdkVersion(31)
 
         resValue("string", "app_name", Statics.APP_NAME)
     }

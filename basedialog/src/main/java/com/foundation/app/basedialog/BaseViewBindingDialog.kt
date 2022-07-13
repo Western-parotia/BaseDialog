@@ -17,7 +17,7 @@ abstract class BaseViewBindingDialog<T : ViewBinding>(activity: ComponentActivit
             LayoutInflater.from(activity),
             rootLayout,
             false
-        )!!
+        )
         convertView(binding)
         return binding.root
     }
